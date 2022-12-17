@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "node src/server.js"
+  },
   "dependencies": {
     "@prisma/client": "^4.7.1",
     "env": "^0.0.2",

@@ -1,9 +1,7 @@
-import { PrismaClient } from ".prisma/client";
+const prisma = require("@prisma/client");
 
-class CreateUserService {
+module.exports = {
   async execute(username, name, email, password) {
-    const prisma = new PrismaClient();
-
     if (!name) {
       throw new Error("O nome informado é inválido");
     }
@@ -37,7 +35,5 @@ class CreateUserService {
       .finally(async () => {
         await prisma.$disconnect();
       });
-  }
-}
-
-export { CreateUserService };
+  },
+};

@@ -1,10 +1,7 @@
-import "reflect-metadata";
-import express, { Request, Response, NextFunction } from "express";
-import "express-async-errors";
+const ReflectMetadata = require("reflect-metadata");
+const express = require("express");
 
-import { router } from "./routes";
-
-import "./database";
+const router = require("./routes");
 
 const app = express();
 
