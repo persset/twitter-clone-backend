@@ -1,0 +1,15 @@
+{
+  "name": "twitter-clone-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^4.7.1",
+    "env": "^0.0.2",
+    "express": "^4.18.2",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "prisma": "^4.7.1"
+  }
+}
