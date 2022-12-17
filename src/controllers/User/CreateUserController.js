@@ -1,16 +1,17 @@
 const express = require("express");
+const prisma = require("@prisma/client");
 const createUserService = require("../../services/User/CreateUserService");
 
 module.exports = {
   async handle(request, response) {
     const { username, name, email, password } = request.body;
 
-    const user = await createUserService.execute({
+    const user = await createUserService.execute(
       username,
       name,
       email,
-      password,
-    });
+      password
+    );
 
     return response.json(user);
   },

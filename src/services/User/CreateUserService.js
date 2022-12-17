@@ -1,4 +1,7 @@
-const prisma = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
+const hash = require("bcryptjs");
+
+const prisma = new PrismaClient();
 
 module.exports = {
   async execute(username, name, email, password) {
@@ -6,9 +9,19 @@ module.exports = {
       throw new Error("O nome informado é inválido");
     }
 
+    const usernameAlreadyExists = await prisma.user.findFirst({
+      where: {
+        username: String(username),
+      },
+    });
+
+    if (usernameAlreadyExists) {
+      throw new Error("O nome de usuário informado já foi selecionado!");
+    }
+
     const emailAlreadyExists = await prisma.user.findFirst({
       where: {
-        email: email,
+        email: String(email),
       },
     });
 
@@ -17,18 +30,20 @@ module.exports = {
     }
 
     async function main() {
+      const passwordHash = await hash.hash(password, 8);
       const user = await prisma.user.create({
         data: {
-          username: username,
-          name: name,
-          email: email,
-          password: password,
+          username,
+          name,
+          email,
+          password: String(passwordHash),
         },
       });
+
       return user;
     }
 
-    main()
+    return main()
       .catch((e) => {
         throw e;
       })
