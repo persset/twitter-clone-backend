@@ -1,5 +1,3 @@
-const express = require("express");
-const prisma = require("@prisma/client");
 const updateUserService = require("../../services/User/UpdateUserService");
 
 module.exports = {
