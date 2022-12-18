@@ -3,11 +3,17 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-  async execute() {
+  async execute(id) {
     async function main() {
-      const users = await prisma.user.findMany();
+      const user = await prisma.user.findUnique({
+        where: { id: Number(id) },
+      });
 
-      return users;
+      if (!user) {
+        throw new Error("Usuário Não Encontrado");
+      }
+
+      return user;
     }
 
     return main()
