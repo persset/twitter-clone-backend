@@ -4,7 +4,8 @@ const updateUserService = require("../../services/User/UpdateUserService");
 
 module.exports = {
   async handle(request, response) {
-    const { id, name, email } = request.body;
+    const { name, email } = request.body;
+    const id = request.params.id;
 
     const user = await updateUserService.execute(id, name, email);
 

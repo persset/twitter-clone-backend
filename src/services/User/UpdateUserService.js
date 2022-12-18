@@ -5,13 +5,13 @@ const prisma = new PrismaClient();
 
 module.exports = {
   async execute(id, name, email) {
-    let userBeingUpdated = prisma.user.findFirst({
+    const userBeingUpdated = await prisma.user.findUnique({
       where: {
         id: Number(id),
       },
     });
 
-    if (!id || id != userBeingUpdated.id) {
+    if (!userBeingUpdated) {
       throw new Error("Usuário não encontrado");
     }
 
@@ -23,8 +23,9 @@ module.exports = {
       where: { email: String(email) },
     });
 
-    if (emailAlreadyExists.id != userBeingUpdated.id) {
-      throw new Error("O email informado já está sendo utilizado!");
+    if (emailAlreadyExists) {
+      if (emailAlreadyExists.id != userBeingUpdated.id)
+        throw new Error("O email informado já está sendo utilizado!");
     }
 
     async function main() {
